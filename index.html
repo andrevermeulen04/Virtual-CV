@@ -2,164 +2,246 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Andreas Vermeulen - CV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andreas Vermeulen - Virtual CV</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Custom font for a clean look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            color: #333;
-            line-height: 1.6;
-            background: #f9f9f9;
+            font-family: 'Inter', sans-serif;
         }
-        h1 {
-            text-align: center;
-            font-size: 2.2em; /* Slightly larger for emphasis */
-            margin-bottom: 5px;
-            color: #2c3e50;
+        /* Custom scrollbar for a polished feel */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        h2 {
-            border-bottom: 2px solid #aaa;
-            padding-bottom: 4px;
-            margin-top: 30px;
-            color: #2c3e50;
-            font-size: 1.6em; /* Adjusted for better hierarchy */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
         }
-        h3 {
-            margin-bottom: 5px;
-            color: #34495e;
-            font-size: 1.2em; /* Adjusted for better hierarchy */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
         }
-        p, li {
-            font-size: 15px;
-            margin-bottom: 8px; /* Added some spacing */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
-        ul {
-            list-style-type: disc;
-            margin-left: 25px;
-            margin-bottom: 15px;
+
+        /* Dark mode transitions */
+        body, .bg-white, .text-gray-800, .text-gray-600, .text-gray-700, .text-gray-900,
+        .border-blue-400, .text-blue-800, .text-blue-600, .text-gray-500 {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
-        .contact-info {
-            text-align: center;
-            font-size: 0.95em;
-            margin-bottom: 20px;
+
+        /* Fade-in animation for sections */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInAnimation 0.8s ease-out forwards;
         }
-        .contact-info a {
-            margin: 0 10px;
-        }
-        .two-columns {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        .column {
-            flex: 1;
-            min-width: 300px;
-        }
-        a {
-            color: #2980b9;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        @media print {
-            body {
-                background: white;
-                color: black;
-            }
-            h2 {
-                border-color: #000;
+
+        @keyframes fadeInAnimation {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
+
+        /* Dark mode specific styles */
+        .dark .bg-gray-100 { background-color: #1a202c; } /* dark blue-gray */
+        .dark .bg-white { background-color: #2d3748; } /* darker blue-gray */
+        .dark .text-gray-800 { color: #edf2f7; } /* light gray */
+        .dark .text-gray-600 { color: #a0aec0; } /* medium gray */
+        .dark .text-gray-700 { color: #e2e8f0; } /* light blue-gray */
+        .dark .text-gray-900 { color: #f7fafc; } /* very light gray */
+        .dark .border-blue-400 { border-color: #63b3ed; } /* lighter blue */
+        .dark .text-blue-800 { color: #90cdf4; } /* light blue */
+        .dark .text-blue-600 { color: #63b3ed; } /* light blue */
+        .dark .text-gray-500 { color: #cbd5e0; } /* light gray */
+        .dark .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15); }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800 leading-relaxed antialiased p-4 sm:p-6 lg:p-8">
 
-<h1>Andreas Vermeulen</h1>
-<p class="contact-info">
-    +27 79 516 1891 | andrevermeulen04@gmail.com | <a href="https://www.linkedin.com/in/andre-vermeulen-0a536b375" target="_blank">LinkedIn</a>
-</p>
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden p-6 sm:p-8 lg:p-10 transform transition-all duration-300 hover:scale-[1.005] hover:shadow-xl">
 
----
+        <!-- Dark Mode Toggle Button -->
+        <button id="darkModeToggle" class="absolute top-4 right-4 p-2 rounded-full bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200">
+            <svg id="moonIcon" class="w-6 h-6 text-gray-700 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+            <svg id="sunIcon" class="w-6 h-6 text-gray-700 dark:text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h1M4 12H3m15.325 6.675l-.707.707M6.707 6.707l-.707-.707m12.728 0l-.707-.707M6.707 17.293l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+        </button>
 
-<h2>Profile</h2>
-<p>
-    Highly motivated **BSc IT student** specializing in **Computer Science & Information Systems**, with a strong foundation in **software development, data analysis, and problem-solving**. Proven ability to **lead group projects**, develop **data-driven models**, and apply technical skills creatively—from coding microcontrollers to music production. Eager to leverage technical expertise and a passion for innovation in a challenging role. Fluent in English and Afrikaans.
-</p>
+        <!-- Header Section -->
+        <header class="text-center mb-8 sm:mb-10 fade-in" style="animation-delay: 0.1s;">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-800 dark:text-blue-400 mb-2">Andreas Vermeulen</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 flex flex-wrap justify-center items-center gap-x-4 gap-y-2">
+                <span>+27 79 516 1891</span>
+                <span class="hidden sm:inline">|</span>
+                <a href="mailto:andrevermeulen04@gmail.com" class="text-blue-600 hover:underline transition-colors duration-200">andrevermeulen04@gmail.com</a>
+                <span class="hidden sm:inline">|</span>
+                <a href="https://www.linkedin.com/in/andre-vermeulen-0a536b375" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline transition-colors duration-200">LinkedIn Profile</a>
+            </p>
+        </header>
 
----
+        <!-- Profile Section -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.2s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Profile</h2>
+            <p class="text-gray-700 dark:text-gray-300 text-base sm:text-lg">
+                Highly motivated **BSc IT student** specializing in Computer Science & Information Systems, with a robust technical background in software development and data analysis. Proven ability to effectively lead group projects and construct sophisticated data-driven models. Passionate about leveraging technology for innovative problem-solving, skillfully blending creativity with logical application—from programming microcontrollers to producing music. Fluent in both English and Afrikaans.
+            </p>
+        </section>
 
-<h2>Experience</h2>
-<h3>Business Information Analyst (Intern)</h3>
-<p>NWK Limited, Lichtenburg, North-West, South Africa | June 2024 – July 2024</p>
-<ul>
-    <li>Developed **visual models** from large datasets to provide actionable insights, directly assisting strategic decision-making.</li>
-    <li>Executed **physical data modeling and in-depth data analysis** to bolster business intelligence initiatives.</li>
-</ul>
+        <!-- Experience Section -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.3s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Experience</h2>
+            <div class="mb-6">
+                <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-gray-100">Business Information Analyst (Internship)</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base">NWK Limited, Lichtenburg, North-West, South Africa | June 2024 – July 2024</p>
+                <ul class="list-disc pl-5 mt-2 text-gray-700 dark:text-gray-300 text-base sm:text-lg space-y-1">
+                    <li>Developed insightful visual models from extensive datasets, directly informing strategic business decisions.</li>
+                    <li>Executed comprehensive physical data modeling and in-depth data analysis, significantly enhancing business intelligence capabilities.</li>
+                </ul>
+            </div>
+        </section>
 
----
+        <!-- Education Section -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.4s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Education</h2>
+            <div class="mb-6">
+                <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-gray-100">Bachelor of Science in Information Technology (Computer Science & Information Systems)</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base">North-West University, Potchefstroom, South Africa | 2023 – 2026</p>
+                <ul class="list-disc pl-5 mt-2 text-gray-700 dark:text-gray-300 text-base sm:text-lg space-y-1">
+                    <li>Actively contributed to Heimat Residence as a member of both the Finance Committee and Arts Committee.</li>
+                    <li>Demonstrated leadership and mentorship as a student judge for debates and a band coach for the first-year concert (3rd year).</li>
+                    <li>Key coursework included Project Planning, C#, Data Structures, Algorithms, and Database Management.</li>
+                </ul>
+            </div>
+        </section>
 
-<h2>Education</h2>
-<p><strong>BSc in IT (Computer Science & Information Systems)</strong><br>
-North-West University, Potchefstroom, South Africa<br>
-2023 – 2026</p>
-<ul>
-    <li>Actively participated in campus leadership roles, including **Heimat Residence Finance and Arts Committees**.</li>
-    <li>Demonstrated leadership and mentorship as a **student judge for debates and band coach** for the first-year concert (3rd year).</li>
-    <li>Relevant coursework includes Project Planning, C#, and advanced technical modules in data structures and algorithms.</li>
-</ul>
+        <!-- Technical Skills Section -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.5s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Technical Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300 text-base sm:text-lg">
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-gray-100 mb-2">Programming & Development</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Languages:</strong> Java, C++, C#, Python, SQL</li>
+                        <li><strong>Concepts:</strong> Data Structures, Algorithms, Object-Oriented Programming</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-gray-100 mb-2">Data & Database Management</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Data Analysis, Physical Data Modelling, Database Design & Management, Business Intelligence</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-gray-100 mb-2">Software & Digital Tools</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Digital Audio Workstations (DAWs - Music Production), Photo & Video Editing Software</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-medium text-gray-800 dark:text-gray-100 mb-2">Hardware & Projects</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Raspberry Pi Programming, Microcontroller Interaction, Game Modding (exploring system architecture)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
----
+        <!-- Awards & Honors Section -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.6s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Awards & Honors</h2>
+            <ul class="list-disc pl-5 text-gray-700 dark:text-gray-300 text-base sm:text-lg space-y-1">
+                <li>Two-time winner of university-wide Game Jams, demonstrating exceptional teamwork, rapid prototyping, and innovative problem-solving under pressure.</li>
+            </ul>
+        </section>
 
-<h2>Technical Skills</h2>
-<div class="two-columns">
-    <div class="column">
-        <h3>Programming & Development</h3>
-        <ul>
-            <li><strong>Languages:</strong> Java, C++, C#, Python, SQL</li>
-            <li><strong>Tools & Concepts:</strong> Data Structures, Algorithms, Object-Oriented Programming</li>
-        </ul>
-        <h3>Data & Database Management</h3>
-        <ul>
-            <li>Data analysis, Physical Data Modelling, Database Design & Management, Business Intelligence</li>
-        </ul>
+        <!-- Soft Skills Section -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.7s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Soft Skills</h2>
+            <ul class="list-disc pl-5 text-gray-700 dark:text-gray-300 text-base sm:text-lg space-y-1">
+                <li>Consistently led the majority of university group projects, fostering collaborative environments and ensuring successful outcomes through strong leadership and teamwork.</li>
+                <li>Demonstrated excellent communication skills through active participation in committee work and effective coaching roles.</li>
+            </ul>
+        </section>
+
+        <!-- Certifications Section -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.8s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Certifications</h2>
+            <ul class="list-disc pl-5 text-gray-700 dark:text-gray-300 text-base sm:text-lg space-y-1">
+                <li>Certificate in Quantum Programming</li>
+            </ul>
+        </section>
+
+        <!-- Languages Section -->
+        <section class="mb-8 fade-in" style="animation-delay: 0.9s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Languages</h2>
+            <ul class="list-disc pl-5 text-gray-700 dark:text-gray-300 text-base sm:text-lg space-y-1">
+                <li>English: Fluent (read & write)</li>
+                <li>Afrikaans: Fluent (read & write)</li>
+            </ul>
+        </section>
+
+        <!-- Hobbies & Interests Section -->
+        <section class="fade-in" style="animation-delay: 1.0s;">
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-700 dark:text-gray-200 border-b-2 border-blue-400 dark:border-blue-600 pb-2 mb-4">Hobbies & Interests</h2>
+            <ul class="list-disc pl-5 text-gray-700 dark:text-gray-300 text-base sm:text-lg space-y-1">
+                <li>Engaged in making & studying music, rock climbing, chess, and coding side projects, all contributing to a well-rounded skillset and analytical thinking.</li>
+            </ul>
+        </section>
+
     </div>
-    <div class="column">
-        <h3>Software & Digital Tools</h3>
-        <ul>
-            <li>Digital Audio Workstations (DAWs - Music Production), Photo & Video Editing Software</li>
-        </ul>
-        <h3>Hardware & Projects</h3>
-        <ul>
-            <li>Raspberry Pi Programming, Microcontroller Interaction, Game Modding</li>
-        </ul>
-    </div>
-</div>
 
----
+    <script>
+        // JavaScript for Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
+        const html = document.documentElement; // Get the root HTML element
 
-<h2>Projects & Achievements</h2>
-<ul>
-    <li>**Two-time Winner** of university-wide Game Jams, demonstrating rapid prototyping, teamwork, and innovative problem-solving in a competitive environment.</li>
-    <li>Developed various **coding side projects** (e.g., [mention a specific type of project if you have one, e.g., "Python scripts for data automation", "small web applications", etc.]) showcasing independent learning and practical application of skills.</li>
-    <li>Successfully **led the majority of university group projects**, consistently achieving strong outcomes through effective collaboration and strategic planning.</li>
-</ul>
+        // Function to set dark mode
+        function setDarkMode(isDark) {
+            if (isDark) {
+                html.classList.add('dark');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+                localStorage.setItem('theme', 'light');
+            }
+        }
 
----
+        // Check for saved theme preference on load
+        window.onload = () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setDarkMode(true);
+            } else {
+                setDarkMode(false);
+            }
 
-<h2>Certifications</h2>
-<ul>
-    <li>Certificate in Quantum Programming</li>
-</ul>
+            // Apply fade-in animation to all sections
+            const sections = document.querySelectorAll('section, header');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${index * 0.1}s`; // Stagger the animation
+                section.classList.add('fade-in');
+            });
+        };
 
----
-
-<h2>Interests</h2>
-<ul>
-    <li>Passionate about **music creation & theory**, **rock climbing**, and **chess**, enriching problem-solving skills and fostering strategic thinking.</li>
-</ul>
-
+        // Toggle dark mode on button click
+        darkModeToggle.addEventListener('click', () => {
+            setDarkMode(!html.classList.contains('dark'));
+        });
+    </script>
 </body>
 </html>
